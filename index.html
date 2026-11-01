@@ -131,7 +131,7 @@ footer{text-align:center;font-weight:700}
 document.querySelectorAll('.ph button').forEach(function(b){b.addEventListener('click',function(){
  var el=document.getElementById(b.dataset.t),t=el.textContent;
  var done=function(){b.textContent='Copied';b.classList.add('ok');setTimeout(function(){b.textContent='Copy';b.classList.remove('ok')},1800)};
- var pick=function(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected, now copy'};
+ var pick=function(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);var ok=false;try{ok=document.execCommand('copy')}catch(e){}if(ok){s.removeAllRanges();done()}else{b.textContent='Selected, now copy'}};
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(pick)}else{pick()}
 })});
 </script>
